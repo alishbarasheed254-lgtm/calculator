@@ -1,20 +1,24 @@
-let buttons= document.querySelectorAll(".btn")
-let userInput=document.querySelector("#data")
-for(let i = 0; i<buttons.length;i++){
-buttons[i].addEventListener("click",(event) =>
-{
-    userInput.value += event.target.innerText;
-});
+const dataElement = document.getElementById('data');
+const historyElement = document.getElementById('history');
+
+function appendValue(val) {
+    if (dataElement.innerText === '0' && val !== '.') {
+        dataElement.innerText = val;
+    } else {
+        dataElement.innerText += val;
+    }
 }
-// result
-let resultBtn = document.querySelector("#result")
-resultBtn.addEventListener("click",()=>{
-    let ouput= eval(userInput.value)
-    userInput.value = output;
-    // userInput.value= ""
-})
-// clear
-let clearBtn = document.querySelector("#full")
-clearBtn.addEventListener("click",()=>{
-     userInput.value= ""
-})
+
+function clearDisplay() {
+    dataElement.innerText = '0';
+    historyElement.innerText = '';
+}
+
+function calculate() {
+    try {
+        historyElement.innerText = dataElement.innerText;
+        dataElement.innerText = eval(dataElement.innerText);
+    } catch (error) {
+        dataElement.innerText = 'Error';
+    }
+}
